@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create your QR Code"
-        android:id="@+id/CreateQRCodeButton"
+        android:id="@+id/createQRCodeButton"
         android:layout_below="@+id/openQRScannerButton"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
