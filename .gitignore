@@ -44,3 +44,13 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
+
+ShowMe/.idea/gradle.xml
+
+ShowMe/app/app.iml
+
+ShowMe/app/build.gradle
+
+ShowMe/app/src/main/libs/li-android-sdk/build.gradle
+
+ShowMe/app/src/main/libs/li-android-sdk/build.gradle
