@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qr.android.showme" >
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,10 +25,10 @@
             android:name=".QRScannerActivity"
             android:label="@string/title_activity_qrscanner" >
         </activity>
+        <activity
+            android:name=".CreateQRActivity"
+            android:label="@string/title_activity_create_qr" >
+        </activity>
     </application>
-
-    <uses-feature android:name="android.hardware.camera"></uses-feature>
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
 </manifest>

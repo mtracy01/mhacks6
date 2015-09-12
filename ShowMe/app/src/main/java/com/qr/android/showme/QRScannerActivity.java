@@ -75,16 +75,14 @@ public class QRScannerActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-
+                //http request goes here
+                
             } else if (resultCode == RESULT_CANCELED) {
             } else {
             }
         }
 
     }
-
-
-
 
 
     @Override
