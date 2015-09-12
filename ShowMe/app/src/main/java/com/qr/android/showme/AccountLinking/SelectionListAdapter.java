@@ -17,13 +17,13 @@ import com.qr.android.showme.R;
  * Purpose: Custom list for our Accounts Linking Page
  */
 
-public class SelectionListView extends ArrayAdapter<String> {
+public class SelectionListAdapter extends ArrayAdapter<String> {
     private Activity context;
     private String[] web;
     private  Bitmap[] imageId;
 
-    public SelectionListView(Activity context,
-                            String[] web, Bitmap[] imageId) {
+    public SelectionListAdapter(Activity context,
+                                String[] web, Bitmap[] imageId) {
         super(context, R.layout.radio_row, web);
         this.context = context;
         this.web = web;

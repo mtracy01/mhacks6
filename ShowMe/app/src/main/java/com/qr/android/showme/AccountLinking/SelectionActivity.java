@@ -1,11 +1,17 @@
 package com.qr.android.showme.AccountLinking;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.qr.android.showme.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectionActivity extends AppCompatActivity {
 
@@ -13,27 +19,30 @@ public class SelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+        ArrayList<String> titles = createTitles();
+        ArrayList<Bitmap> icons  = createImagesList();
+        ListView listView = (ListView)findViewById(R.id.listView);
+        SelectionListAdapter adapter = new SelectionListAdapter(this,(String[])titles.toArray(),(Bitmap[])icons.toArray());
+        listView.setAdapter(adapter);
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selection, menu);
-        return true;
+    private ArrayList<String> createTitles(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("LinkedIn");
+        list.add("Github");
+        list.add("Facebook");
+        list.add("Personal URL");
+        return list;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private ArrayList<Bitmap> createImagesList(){
+        ArrayList<Bitmap> list = new ArrayList<>();
+        list.add(BitmapFactory.decodeResource(getResources(), R.mipmap.linkedin));
+        list.add(BitmapFactory.decodeResource(getResources(), R.mipmap.github));
+        list.add(BitmapFactory.decodeResource(getResources(), R.mipmap.facebook));
+        list.add(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        return list;
     }
+
 }
