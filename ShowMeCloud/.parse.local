@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "ShowMe": {
+      "applicationId": "yCdbM12FKZAqcHEvp4PIEFVDEZHMhJNkSUKuxc0d"
+    },
+    "_default": {
+      "link": "ShowMe"
+    }
+  }
+}
