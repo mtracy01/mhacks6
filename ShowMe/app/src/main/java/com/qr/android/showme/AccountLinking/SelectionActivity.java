@@ -1,9 +1,11 @@
-package com.qr.android.showme;
+package com.qr.android.showme.AccountLinking;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.qr.android.showme.R;
 
 public class SelectionActivity extends AppCompatActivity {
 

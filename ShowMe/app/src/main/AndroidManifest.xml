@@ -40,7 +40,7 @@
             android:label="@string/title_activity_create_qr" >
         </activity>
         <activity
-            android:name=".SelectionActivity"
+            android:name=".AccountLinking.SelectionActivity"
             android:label="@string/title_activity_selection" >
         </activity>
     </application>
