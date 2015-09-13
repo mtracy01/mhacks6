@@ -17,7 +17,6 @@ public class HelperClass {
         ParseUser user = ParseUser.getCurrentUser();
         user.put("FacebookURL",Facebookurl);
         if(((String)user.get("FacebookURL")).equals(Facebookurl)){
-
             return true;
         }
         Log.e("hI","Wrongt");
@@ -28,7 +27,7 @@ public class HelperClass {
         user.put("LinkedInURL", LinkedInurl);
         if(((String)user.get("LinkedInURL")).equals( LinkedInurl)){
             String s = (String)user.get("FacebookURL");
-            Log.e("hI",s );
+            Log.e("hI",s+"hello" );
             return true;
         }
         return false;
