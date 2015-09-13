@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="1,2">
+    android:stretchColumns="1,2,3"
+    android:layout_height="match_parent" >
     <TableRow>
         <ImageView
             android:id="@+id/img"
@@ -13,8 +13,8 @@
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="50dp" />
-        <Switch
-            android:id="@+id/swtch"
+        <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
     </TableRow>
