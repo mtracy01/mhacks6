@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -28,8 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class QRScannerActivity extends ActionBarActivity {
@@ -38,6 +41,12 @@ public class QRScannerActivity extends ActionBarActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public Uri QRUri;
     public static File mediaFile;
+    String qrCodeData = "Hello World!";
+    String filePath = "QRCode.png";
+    String charset = "UTF-8"; // or "ISO-8859-1"
+    public static String imagePath;
+    public int SCANNER_REQUEST_CODE = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +55,45 @@ public class QRScannerActivity extends ActionBarActivity {
         scanQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                /*Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 QRUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, QRUri);
-                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);*/
+
+                Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+                startActivityForResult(intent, 0);
             }
         });
     }
 
-    private static Uri getOutputMediaFileUri(int type){
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        if (requestCode == SCANNER_REQUEST_CODE) {
+            System.out.println("1141 scan intent?");// Handle scan intent
+            if (resultCode == Activity.RESULT_OK) {
+                // Handle successful scan
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                //String formatName = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                //byte[] rawBytes = intent.getByteArrayExtra("SCAN_RESULT_BYTES");
+                //int intentOrientation = intent.getIntExtra("SCAN_RESULT_ORIENTATION", Integer.MIN_VALUE);
+                //Integer orientation = (intentOrientation == Integer.MIN_VALUE) ? null : intentOrientation;
+                //String errorCorrectionLevel = intent.getStringExtra("SCAN_RESULT_ERROR_CORRECTION_LEVEL");
+
+                System.out.println("1141 " + contents);
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                // Handle cancel
+            }
+        } else {
+            String contents = intent.getStringExtra("SCAN_RESULT");
+                System.out.println("1141 other " + contents);
+        }
+
+    }
+
+    /*private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
@@ -72,6 +111,7 @@ public class QRScannerActivity extends ActionBarActivity {
         if (type == MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "QRCode.jpg");
+            imagePath = mediaStorageDir.getPath() + File.separator + "QRCode.jpg";
         }else {
             return null;
         }
@@ -83,7 +123,18 @@ public class QRScannerActivity extends ActionBarActivity {
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Runnable runnable = new Runnable() {
+
+
+                /*Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+                hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+                createQRCode(qrCodeData, filePath, charset, hintMap, 200, 200);
+
+
+                System.out.println("1141 Data read from QR Code: "
+                        + readQRCode(filePath, charset, hintMap));
+
+                /*Runnable runnable = new Runnable() {
 
 
                     public void run() {
@@ -105,7 +156,7 @@ public class QRScannerActivity extends ActionBarActivity {
 
                             HttpResponse response = httpClient.execute(httpPost);
 
-                            System.out.println("1141 " + response.toString());
+                            System.out.println("1141 " + response.getStatusLine().toString());
                         } catch (FileNotFoundException e) {
                             System.out.println("1141 FileNotFoundException");
                         } catch (ClientProtocolException e) {
@@ -119,7 +170,7 @@ public class QRScannerActivity extends ActionBarActivity {
                 thread.start();
             }
         }
-    }
+    }*/
 
 
     @Override
