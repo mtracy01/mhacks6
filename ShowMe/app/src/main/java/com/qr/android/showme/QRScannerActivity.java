@@ -13,7 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -27,8 +36,7 @@ public class QRScannerActivity extends ActionBarActivity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public Uri QRUri;
-    public String QRFilename;
-
+    public static File mediaFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +68,6 @@ public class QRScannerActivity extends ActionBarActivity {
                 return null;
             }
         }
-        File mediaFile;
         if (type == MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "QRCode.jpg");
@@ -72,15 +79,30 @@ public class QRScannerActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                //http request goes here
-                
-            } else if (resultCode == RESULT_CANCELED) {
-            } else {
+                try {//http request goes here
+                    File file = mediaFile;
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://api.qrserver.com/v1/read-qr-code/");
+
+                    InputStreamEntity reqEntity = new InputStreamEntity(
+                            new FileInputStream(file), -1);
+                    reqEntity.setContentType("binary/octet-stream");
+                    reqEntity.setChunked(true); // Send in multiple parts if needed
+                    httpPost.setEntity(reqEntity);
+                    HttpResponse response = httpClient.execute(httpPost);
+                    System.out.println("1141 " + response);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        }   
 
     }
 
