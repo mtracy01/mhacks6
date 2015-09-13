@@ -2,6 +2,7 @@ package com.qr.android.showme.AccountLinking;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,17 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.qr.android.showme.HelperClass;
 import com.qr.android.showme.R;
 
 /**
@@ -68,8 +74,29 @@ public class SelectionListAdapter extends ArrayAdapter<String> {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
+                        String userid = FacebookSdk.getClientToken();
                         //TODO: Get link to FB profile and put it in database
-                        
+                        /* make the API call */
+                        new GraphRequest(
+                                AccessToken.getCurrentAccessToken(),
+                                /*"/{user-id}" , */"/" + userid,
+                                null,
+                                HttpMethod.GET,
+                                new GraphRequest.Callback() {
+                                    public void onCompleted(GraphResponse response) {
+                                      /* handle the result */
+                                        try {
+                                            String link = (String) response.getJSONObject().get("link");
+                                            Log.e("SelectionListAdapter","Facebook link: " + link);
+                                            //TODO: Save this facebook link to database
+                                            HelperClass.SetFacebookUrl(link);
+                                        }
+                                        catch(Exception e){
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                        ).executeAsync();
                     }
 
                     @Override
