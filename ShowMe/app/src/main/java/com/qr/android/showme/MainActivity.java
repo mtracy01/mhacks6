@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import com.parse.Parse;
 import com.parse.ParseUser;
+import com.qr.android.showme.AccountLinking.SelectionActivity;
 
 public class MainActivity extends Activity {
 
@@ -44,6 +45,14 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 ParseUser.logOutInBackground();
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            }
+        });
+
+        Button linkAccountButton = (Button)findViewById(R.id.linkButton);
+        linkAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SelectionActivity.class));
             }
         });
 

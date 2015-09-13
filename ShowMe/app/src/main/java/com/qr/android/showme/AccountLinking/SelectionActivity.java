@@ -22,7 +22,9 @@ public class SelectionActivity extends AppCompatActivity {
         ArrayList<String> titles = createTitles();
         ArrayList<Bitmap> icons  = createImagesList();
         ListView listView = (ListView)findViewById(R.id.listView);
-        SelectionListAdapter adapter = new SelectionListAdapter(this,(String[])titles.toArray(),(Bitmap[])icons.toArray());
+        String[] stuff = new String[titles.size()];
+        Bitmap[] bitstuff = new Bitmap[icons.size()];
+        SelectionListAdapter adapter = new SelectionListAdapter(this,titles.toArray(stuff),icons.toArray(bitstuff));
         listView.setAdapter(adapter);
 
     }

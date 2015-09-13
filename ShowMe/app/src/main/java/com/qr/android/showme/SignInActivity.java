@@ -66,6 +66,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
             first = true;
             Parse.enableLocalDatastore(this);
             Parse.initialize(this, "yCdbM12FKZAqcHEvp4PIEFVDEZHMhJNkSUKuxc0d", "M75faIfv4O3DSmhK6gqnI0mBHIHBxNIRDJseHNA5");
+
         }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
