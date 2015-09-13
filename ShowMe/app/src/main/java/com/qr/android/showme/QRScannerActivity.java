@@ -82,28 +82,42 @@ public class QRScannerActivity extends ActionBarActivity {
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                try {//http request goes here
-                    File file = mediaFile;
-                    HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("http://api.qrserver.com/v1/read-qr-code/");
+                Runnable runnable = new Runnable() {
 
-                    InputStreamEntity reqEntity = new InputStreamEntity(
-                            new FileInputStream(file), -1);
-                    reqEntity.setContentType("binary/octet-stream");
-                    reqEntity.setChunked(true); // Send in multiple parts if needed
-                    httpPost.setEntity(reqEntity);
-                    HttpResponse response = httpClient.execute(httpPost);
-                    System.out.println("1141 " + response);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (ClientProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                    public void run() {
+                        try {//http request goes here
+
+                            File file = mediaFile;
+                            HttpClient httpClient = new DefaultHttpClient();
+                            HttpPost httpPost = new HttpPost("http://api.qrserver.com/v1/read-qr-code/");
+
+
+                            InputStreamEntity reqEntity = new InputStreamEntity(
+                                    new FileInputStream(file), -1);
+                            reqEntity.setContentType("binary/octet-stream");
+
+                            reqEntity.setChunked(true);
+
+
+                            httpPost.setEntity(reqEntity);
+
+                            HttpResponse response = httpClient.execute(httpPost);
+
+                            System.out.println("1141 " + response.toString());
+                        } catch (FileNotFoundException e) {
+                            System.out.println("1141 FileNotFoundException");
+                        } catch (ClientProtocolException e) {
+                            System.out.println("1141 ClientProtocolException");
+                        } catch (IOException e) {
+                            System.out.println("1141 IOException");
+                        }
+                    }
+                };
+                Thread thread = new Thread(runnable);
+                thread.start();
             }
-        }   
-
+        }
     }
 
 
