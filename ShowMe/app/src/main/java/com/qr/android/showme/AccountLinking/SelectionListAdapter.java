@@ -33,27 +33,29 @@ public class SelectionListAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        /*View rowView = inflater.inflate(R.layout.list_single_invite, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
-        com.rey.material.widget.CheckBox checkBox = (com.rey.material.widget.CheckBox) rowView.findViewById(R.id.checkbox);
-        final int rowPosition = position;
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked == true)
-                    Data.selectedUsers.add(Data.invitableUsers.get(rowPosition));
-                else {
-                    //If they are on the list of people to invite, remove them
-                    if (Data.selectedUsers.contains(Data.invitableUsers.get(rowPosition)))
-                        Data.selectedUsers.remove(Data.invitableUsers.get(rowPosition));
-                }
-            }
-        });
-        txtTitle.setText(web[position]);
-        imageView.setImageBitmap(imageId[position]);
-        return rowView;*/
-        return null;
+        View rowView = inflater.inflate(R.layout.radio_row, null, true);
+        switch(position){
+            case 0: //LinkedIn
+                //TODO: LinkedIn Integration Here
+                break;
+
+            case 1: //Github
+                //TODO: Github Integration Here
+                break;
+            case 2: //Facebook
+                //TODO: Facebook Integration Here
+                break;
+            case 3: //Personal URL
+                rowView = inflater.inflate(R.layout.text_row, null, true);
+                //TODO: Personal URL integration here
+                break;
+        }
+        TextView txt = (TextView)rowView.findViewById(R.id.txt);
+        ImageView img = (ImageView)rowView.findViewById(R.id.img);
+        txt.setText(web[position]);
+        img.setImageBitmap(imageId[position]);
+        return rowView;
+
     }
 }
 
