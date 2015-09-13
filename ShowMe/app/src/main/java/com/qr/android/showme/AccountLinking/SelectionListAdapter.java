@@ -25,6 +25,8 @@ import com.facebook.login.widget.LoginButton;
 import com.qr.android.showme.HelperClass;
 import com.qr.android.showme.R;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by Matthew on 9/12/2015.
  * Purpose: Custom list for our Accounts Linking Page
@@ -55,7 +57,18 @@ public class SelectionListAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.radio_row, null, true);
         switch(position){
             case 0: //LinkedIn
-                //TODO: LinkedIn Integration Here
+                /*LISessionManager.getInstance(getApplicationContext()).init(SelectionActivity, buildScope(), new AuthListener() {
+                    @Override
+                    public void onAuthSuccess() {
+                        // Authentication was successful.  You can now do
+                        // other calls with the SDK.
+                    }
+
+                    @Override
+                    public void onAuthError(LIAuthError error) {
+                        // Handle authentication errors
+                    }
+                }, true);*/
                 break;
             case 1: //Github
                 //TODO: Github Integration Here
