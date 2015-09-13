@@ -34,6 +34,7 @@ import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -96,6 +97,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
             public void onClick(View view) {
                 Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
                 startActivity(intent);
+
             }
         });
         mLoginFormView = findViewById(R.id.login_form);
@@ -283,18 +285,14 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
                 public void done(ParseUser parseUser, ParseException e) {
                     if(e == null){
                         ret[0] = true;
-
+                        HelperClass.SetFacebookUrl("facebook.com/food");
+                        HelperClass.SetLinkedInUrl("linkedIn/food");
                     }
                     else {
                         ret[0] = false;
                     }
                 }
             });
-
-
-
-
-            // TODO: register the new account here.
             return ret[0];
         }
 
