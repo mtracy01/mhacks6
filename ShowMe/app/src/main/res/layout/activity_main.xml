@@ -18,14 +18,14 @@
         android:layout_height="wrap_content"
         android:text="Create QR Code"
         android:id="@+id/createQRCodeButton"
-        android:layout_below="@+id/signupbutton"
+        android:layout_below="@+id/signoutbutton"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:id="@+id/signupbutton"
+        android:text="Sign out"
+        android:id="@+id/signoutbutton"
         android:layout_below="@+id/openQRScannerButton"
         android:layout_centerHorizontal="true" />
 

@@ -30,13 +30,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.parse.LogInCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 /**
  * A login screen that offers login via email/password.
  */
 public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> {
-
+    public static boolean first = false;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -58,10 +60,13 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_up);
         // Set up the login form.
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "yCdbM12FKZAqcHEvp4PIEFVDEZHMhJNkSUKuxc0d", "M75faIfv4O3DSmhK6gqnI0mBHIHBxNIRDJseHNA5");
+        if(!first) {
+            first = true;
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this, "yCdbM12FKZAqcHEvp4PIEFVDEZHMhJNkSUKuxc0d", "M75faIfv4O3DSmhK6gqnI0mBHIHBxNIRDJseHNA5");
+        }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -258,8 +263,9 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public static final boolean[] ret = new boolean[1];
 
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String mEmail;
         private final String mPassword;
 
@@ -271,12 +277,24 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
+            ParseUser.logInInBackground(mEmail, mPassword, new LogInCallback() {
+                @Override
+                public void done(ParseUser parseUser, ParseException e) {
+                    if(e == null){
+                        ret[0] = true;
+
+                    }
+                    else {
+                        ret[0] = false;
+                    }
+                }
+            });
 
 
 
 
             // TODO: register the new account here.
-            return true;
+            return ret[0];
         }
 
         @Override
@@ -286,6 +304,8 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
 
             if (success) {
                 finish();
+                Intent intent = new Intent(SignInActivity.this,MainActivity.class);
+                startActivity(intent);
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.parse.Parse;
+import com.parse.ParseUser;
 
 public class MainActivity extends Activity {
 
@@ -37,10 +38,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button signUpButton = (Button) findViewById(R.id.signupbutton);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        Button signOutButton = (Button) findViewById(R.id.signoutbutton);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ParseUser.logOutInBackground();
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
             }
         });
