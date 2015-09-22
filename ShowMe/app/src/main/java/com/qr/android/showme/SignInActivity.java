@@ -280,19 +280,14 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            ParseUser.logInInBackground(mEmail, mPassword, new LogInCallback() {
-                @Override
-                public void done(ParseUser parseUser, ParseException e) {
-                    if(e == null){
-                        ret[0] = true;
-                        HelperClass.SetFacebookUrl("facebook.com/food");
-                        HelperClass.SetLinkedInUrl("linkedIn/food");
-                    }
-                    else {
-                        ret[0] = false;
-                    }
-                }
-            });
+            try {
+                ParseUser.logIn(mEmail,mPassword);
+                ret[0]=true;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                e.getMessage();
+                ret[0]=false;
+            }
             return ret[0];
         }
 

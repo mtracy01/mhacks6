@@ -41,13 +41,7 @@ import com.parse.SignUpCallback;
  */
 public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -274,19 +268,14 @@ public class SignUpActivity extends Activity implements LoaderCallbacks<Cursor> 
             newuser.setEmail(mEmail);
             newuser.setUsername(mEmail);
             newuser.setPassword(mPassword);
-            newuser.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e == null){
-                       ret[0]=true;
-                    }
-                    else{
-                        Log.e("SignUp", e.getMessage());
-                        ret[0]=false;
-                    }
-                }
-            });
-            // TODO: register the new account here.
+            try {
+                newuser.signUp();
+                return true;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Log.e("SignUp",e.getMessage());
+                ret[0]=false;
+            }
             return ret[0];
         }
 
