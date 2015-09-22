@@ -39,14 +39,7 @@ import com.parse.ParseUser;
  * A login screen that offers login via email/password.
  */
 public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> {
-    public static boolean first = false;
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -63,8 +56,8 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         // Set up the login form.
-        if(!first) {
-            first = true;
+        if(!Global.first) {
+            Global.first = true;
             Parse.enableLocalDatastore(this);
             Parse.initialize(this, "yCdbM12FKZAqcHEvp4PIEFVDEZHMhJNkSUKuxc0d", "M75faIfv4O3DSmhK6gqnI0mBHIHBxNIRDJseHNA5");
 

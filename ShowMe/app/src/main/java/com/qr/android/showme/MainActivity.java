@@ -17,6 +17,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!Global.first) {
+            Global.first = true;
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this, "yCdbM12FKZAqcHEvp4PIEFVDEZHMhJNkSUKuxc0d", "M75faIfv4O3DSmhK6gqnI0mBHIHBxNIRDJseHNA5");
+
+        }
         setContentView(R.layout.activity_main);
 
         Button openQRScannerButton = (Button) findViewById(R.id.openQRScannerButton);
